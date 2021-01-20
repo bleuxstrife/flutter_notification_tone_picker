@@ -48,9 +48,9 @@ class _MyAppState extends State<MyApp> {
           return Center(
             child: Column(children: [
               Text("ToneName : ${notificationTone?.toneName ?? null}"),
-              Text("uriString : ${notificationTone?.uriPath ?? null}"),
+              Text("uriString : ${notificationTone?.uriString ?? null}"),
               Container(margin: EdgeInsets.only(top: 16.0), child: FlatButton(child: Text("Press"), onPressed: () async {
-                notificationTone = await FlutterNotifTonePicker.pickTone();
+                notificationTone = await FlutterNotifTonePicker.pickTone(uriString: notificationTone?.uriString);
                 setState(() {});
               },))
             ]),

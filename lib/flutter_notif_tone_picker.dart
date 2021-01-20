@@ -10,8 +10,10 @@ class FlutterNotifTonePicker {
       const MethodChannel('dev.bleuxstrife.flutter_notif_tone_picker');
 
 
-  static Future<NotificationTone>  pickTone() async {
-    Map<dynamic, dynamic> result = await _channel.invokeMethod("changeTone") as Map;
+  static Future<NotificationTone>  pickTone({String uriString}) async {
+    Map<dynamic, dynamic> result = await _channel.invokeMethod("changeTone",<String, dynamic>{
+      'uriString': uriString,
+    }) as Map;
     if (result == null) return null;
     NotificationTone data = NotificationTone.fromMap(result);
     return data;

@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotifTonePickerCache {
-    static final String MAP_KEY_URI_PATH = "uriPath";
+    static final String MAP_KEY_URI_STRING = "uriString";
     static final String MAP_KEY_TONE_NAME = "toneName";
-    static final String SHARED_PREFERENCE_URI_PATH = "flutter_notif_tone_picker_shared_preference_uri_path";
+    static final String SHARED_PREFERENCE_URI_STRING = "flutter_notif_tone_picker_shared_preference_uri_string";
     static final String SHARED_PREFERENCE_TONE_NAME = "flutter_notif_tone_picker_shared_preference_tone_name";
     
     @VisibleForTesting
@@ -24,8 +24,8 @@ public class NotifTonePickerCache {
         prefs = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-    void saveUriPath(Uri uri) {
-        prefs.edit().putString(SHARED_PREFERENCE_URI_PATH, uri.getPath()).apply();
+    void saveUriPath(String uriPath) {
+        prefs.edit().putString(SHARED_PREFERENCE_URI_STRING, uriPath).apply();
     }
     
     void saveToneName(String toneName){
@@ -41,9 +41,9 @@ public class NotifTonePickerCache {
         Map<String, Object> resultMap = new HashMap<>();
         boolean hasData = false;
         
-        if(prefs.contains(SHARED_PREFERENCE_URI_PATH)){
-            final String uriPath = prefs.getString(SHARED_PREFERENCE_URI_PATH, "");
-            resultMap.put(MAP_KEY_URI_PATH, uriPath);
+        if(prefs.contains(SHARED_PREFERENCE_URI_STRING)){
+            final String uriPath = prefs.getString(SHARED_PREFERENCE_URI_STRING, "");
+            resultMap.put(MAP_KEY_URI_STRING, uriPath);
         }
         
         if(prefs.contains(SHARED_PREFERENCE_TONE_NAME)){

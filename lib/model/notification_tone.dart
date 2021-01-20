@@ -1,12 +1,12 @@
 class NotificationTone {
-  final String uriPath;
+  final String uriString;
   final String toneName;
 
-  NotificationTone({this.uriPath, this.toneName});
+  NotificationTone({this.uriString, this.toneName});
 
   factory NotificationTone.fromMap(Map<dynamic, dynamic> map){
     return NotificationTone(
-        uriPath: map["uriPath"] as String,
+        uriString: map["uriString"] as String,
         toneName: map["toneName"] as String
     );
   }

@@ -233,7 +233,8 @@ public class FlutterNotifTonePickerPlugin implements FlutterPlugin, MethodCallHa
     final MethodChannel.Result result = new MethodResultWrapper(rawResult);
 
     if (call.method.equals(METHOD_CALL_NOTIF_TONE_PICKER)) {
-      this.delegate.openNotificationTone(result);
+      String uriString =  call.argument("uriString");
+      this.delegate.openNotificationTone(result, uriString);
     } else if(call.method.equals(METHOD_CALL_RETRIEVE)) {
       this.delegate.retrieveLostData(result);
     } else {

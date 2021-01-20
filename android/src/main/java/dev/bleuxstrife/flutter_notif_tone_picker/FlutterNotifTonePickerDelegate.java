@@ -72,17 +72,23 @@ public class FlutterNotifTonePickerDelegate implements PluginRegistry.ActivityRe
         return false;
     }
 
-    public void openNotificationTone(MethodChannel.Result result){
+    public void openNotificationTone(MethodChannel.Result result, String uriPath){
 
         if (!this.setPendingMethodCallAndResult(result)) {
             finishWithAlreadyActiveError(result);
             return;
         }
+        Uri uri;
+        if(uriPath == null){
+            uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        } else {
+            uri = Uri.parse(uriPath);
+        }
         final Intent intent;
         intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, uri);
         this.activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -111,10 +117,11 @@ public class FlutterNotifTonePickerDelegate implements PluginRegistry.ActivityRe
         if (this.pendingResult != null) {
             Ringtone ringtone = RingtoneManager.getRingtone(this.activity, data);
             String title = ringtone.getTitle(this.activity);
+            String uriPath = data.toString();
             HashMap<String, String> mapData = new HashMap();
             cache.saveToneName(title);
-            cache.saveUriPath(data);
-            mapData.put("uriPath", data.getPath());
+            cache.saveUriPath(uriPath);
+            mapData.put("uriString", uriPath);
             mapData.put("toneName", title);
             this.pendingResult.success(mapData);
             this.clearPendingResult();
