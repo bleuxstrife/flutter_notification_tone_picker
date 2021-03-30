@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await FlutterNotifTonePicker.platformVersion, '42');
+    expect(await FlutterNotifTonePicker, '42');
   });
 }
